@@ -1,7 +1,10 @@
 package net.roostertech.moviedb;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import net.roostertech.moviedb.adapters.MovieArrayAdapter;
@@ -32,6 +35,15 @@ public class NowPlayingActivity extends AppCompatActivity {
         lvMovies = findViewById(R.id.lvMovies);
         movieArrayAdapter = new MovieArrayAdapter(this, movies);
         lvMovies.setAdapter(movieArrayAdapter);
+
+        lvMovies.setOnItemClickListener((parent, view, position, id) -> {
+            LOG.debug("Clicked on item {}", position);
+            Movie movie = (Movie) parent.getItemAtPosition(position);
+            Intent movieDetailIntent = new Intent(NowPlayingActivity.this, MovieDetailActivity.class);
+            movieDetailIntent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie);
+            startActivity(movieDetailIntent);
+        });
+
     }
 
     @Override
@@ -42,7 +54,7 @@ public class NowPlayingActivity extends AppCompatActivity {
         nowPlayingFetch.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(nowPlaying -> {
-                    LOG.debug("Movie {}", nowPlaying);
+                    LOG.debug("Loaded {} movies", nowPlaying.getMovies().size());
                     movies.addAll(nowPlaying.getMovies());
                     movieArrayAdapter.notifyDataSetChanged();
                 }, error -> {

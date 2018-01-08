@@ -15,8 +15,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieClient {
-    public static final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/";
-    public static final String POSTER_W154_BASE_URL = "http://image.tmdb.org/t/p/w154";
+    public static final String POSTER_BASE_URL = "http://image.tmdb.org/t/p";
+    public static final String POSTER_W154_BASE_URL = POSTER_BASE_URL + "/w154";
+    public static final String POSTER_W500_BASE_URL = POSTER_BASE_URL + "/w500";
 
     static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
     private MovieDbApi movieDbApi;
