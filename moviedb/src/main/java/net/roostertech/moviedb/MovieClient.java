@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieClient {
     public static final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/";
-    public static final String POSTER_W185_BASE_URL = "http://image.tmdb.org/t/p/w185";
+    public static final String POSTER_W154_BASE_URL = "http://image.tmdb.org/t/p/w154";
 
     static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
     private MovieDbApi movieDbApi;
