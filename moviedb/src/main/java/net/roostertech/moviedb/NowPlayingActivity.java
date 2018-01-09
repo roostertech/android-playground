@@ -3,11 +3,15 @@ package net.roostertech.moviedb;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import net.roostertech.moviedb.adapters.MovieArrayAdapter;
+import net.roostertech.moviedb.adapters.MovieRecyclerAdapter;
+import net.roostertech.moviedb.adapters.RecyclerViewClickListener;
 import net.roostertech.moviedb.model.Movie;
 import net.roostertech.moviedb.model.NowPlaying;
 
@@ -24,8 +28,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NowPlayingActivity extends AppCompatActivity {
     Logger LOG = LoggerFactory.getLogger(NowPlayingActivity.class);
-    ListView lvMovies;
-    MovieArrayAdapter movieArrayAdapter;
+    RecyclerView lvMovies;
+    MovieRecyclerAdapter movieArrayAdapter;
     ArrayList<Movie> movies = new ArrayList<>();
 
     @Override
@@ -33,17 +37,18 @@ public class NowPlayingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_now_playing);
         lvMovies = findViewById(R.id.lvMovies);
-        movieArrayAdapter = new MovieArrayAdapter(this, movies);
-        lvMovies.setAdapter(movieArrayAdapter);
-
-        lvMovies.setOnItemClickListener((parent, view, position, id) -> {
-            LOG.debug("Clicked on item {}", position);
-            Movie movie = (Movie) parent.getItemAtPosition(position);
-            Intent movieDetailIntent = new Intent(NowPlayingActivity.this, MovieDetailActivity.class);
-            movieDetailIntent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie);
-            startActivity(movieDetailIntent);
+        movieArrayAdapter = new MovieRecyclerAdapter(movies, this, new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                LOG.debug("Clicked on item {}", position);
+                Movie movie = movies.get(position);
+                Intent movieDetailIntent = new Intent(NowPlayingActivity.this, MovieDetailActivity.class);
+                movieDetailIntent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie);
+                startActivity(movieDetailIntent);
+            }
         });
-
+        lvMovies.setAdapter(movieArrayAdapter);
+        lvMovies.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
