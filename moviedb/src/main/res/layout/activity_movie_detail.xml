@@ -47,5 +47,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMovieTitle"/>
+
+        <RatingBar
+            android:id="@+id/movieRatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:numStars="5"
+            android:stepSize=".5"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMoviePoster"
+            app:layout_constraintEnd_toEndOf="@+id/ivMoviePoster"/>
+
+        <fragment
+            android:id="@+id/youtube_player"
+            android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMovieDesc">
+        </fragment>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
