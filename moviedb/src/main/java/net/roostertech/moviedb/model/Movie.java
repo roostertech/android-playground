@@ -2,16 +2,23 @@ package net.roostertech.moviedb.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+
+import net.roostertech.moviedb.persistence.MovieStorage;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Table(database = MovieStorage.class)
 public class Movie implements Serializable {
     @SerializedName("vote_count")
     @Expose
     private int voteCount;
     @SerializedName("id")
     @Expose
+    @PrimaryKey // DBFlow
     private int id;
     @SerializedName("video")
     @Expose
@@ -21,12 +28,14 @@ public class Movie implements Serializable {
     private double voteAverage;
     @SerializedName("title")
     @Expose
+    @Column // DBFlow
     private String title;
     @SerializedName("popularity")
     @Expose
     private double popularity;
     @SerializedName("poster_path")
     @Expose
+    @Column // DBFlow
     private String posterPath;
     @SerializedName("original_language")
     @Expose
@@ -39,12 +48,14 @@ public class Movie implements Serializable {
     private List<Integer> genreIds = null;
     @SerializedName("backdrop_path")
     @Expose
+    @Column // DBFlow
     private String backdropPath;
     @SerializedName("adult")
     @Expose
     private boolean adult;
     @SerializedName("overview")
     @Expose
+    @Column // DBFlow
     private String overview;
     @SerializedName("release_date")
     @Expose

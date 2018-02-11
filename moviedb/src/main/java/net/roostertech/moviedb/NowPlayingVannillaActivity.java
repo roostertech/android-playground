@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import net.roostertech.moviedb.adapters.MovieArrayAdapter;
 import net.roostertech.moviedb.model.Movie;
+import net.roostertech.moviedb.persistence.MovieStorage;
 import net.roostertech.moviedb.readers.MovieJsonReader;
 
 import org.slf4j.Logger;
@@ -61,6 +62,20 @@ public class NowPlayingVannillaActivity extends AppCompatActivity {
     static AsyncTask<Void, Void, List<Movie>> fetchTask;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        List<Movie> movies = MovieStorage.getInstance().findAll();
+        if (movies.size() > 0) {
+            LOG.debug("Restored {} movies", movies.size());
+            this.movies.addAll(movies);
+            movieArrayAdapter.notifyDataSetChanged();
+        } else {
+            LOG.debug("No persisted data");
+        }
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -72,7 +87,9 @@ public class NowPlayingVannillaActivity extends AppCompatActivity {
                     URL nowPlayingUrl = new URL(MovieClient.BASE_URL + "now_playing" + "?api_key=" + MovieClient.API_KEY);
                     HttpURLConnection urlConnection = (HttpURLConnection) nowPlayingUrl.openConnection();
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                    return readResults(in);
+                    List<Movie> movies = readResults(in);
+                    MovieStorage.getInstance().store(movies);
+                    return movies;
                 } catch (java.io.IOException e) {
                     e.printStackTrace();
                 }

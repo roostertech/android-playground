@@ -30,10 +30,11 @@ public class MovieJsonReader {
                 movie.setBackdropPath(reader.nextString());
             } else if (name.equals("poster_path")) {
                 movie.setPosterPath(reader.nextString());
+            } else if (name.equals("id")) {
+                movie.setId(reader.nextInt());
             } else {
                 reader.skipValue();
             }
-            LOG.debug(name);
         }
         reader.endObject();
         return movie;

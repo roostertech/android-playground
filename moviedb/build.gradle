@@ -29,6 +29,7 @@ android {
         sourceCompatibility 1.8
     }
 }
+def dbflow_version = "4.2.4"
 
 dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
@@ -40,6 +41,10 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.7'
 
     compile 'com.github.bumptech.glide:glide:3.8.0'
+
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
 
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'com.github.tony19:logback-android-core:1.1.1-6'
