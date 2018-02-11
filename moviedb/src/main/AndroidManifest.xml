@@ -19,9 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MovieDetailActivity"
-                  android:parentActivityName=".NowPlayingActivity" >
+        <activity
+            android:name=".MovieDetailActivity"
+            android:parentActivityName=".NowPlayingActivity">
             >
+        </activity>
+        <activity android:name=".NowPlayingVannillaActivity"
+            android:exported="true">
         </activity>
     </application>
 

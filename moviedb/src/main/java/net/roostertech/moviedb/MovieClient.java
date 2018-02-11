@@ -20,6 +20,7 @@ public class MovieClient {
     public static final String POSTER_W500_BASE_URL = POSTER_BASE_URL + "/w500";
 
     static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
+    static final String API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
     private MovieDbApi movieDbApi;
     private Retrofit retrofit;
     static private MovieClient instance;
@@ -36,7 +37,7 @@ public class MovieClient {
                 HttpUrl originalHttpUrl = original.url();
 
                 HttpUrl url = originalHttpUrl.newBuilder()
-                        .addQueryParameter("api_key", "a07e22bc18f5cb106bfe4cc1f83ad8ed")
+                        .addQueryParameter("api_key", API_KEY)
                         .build();
 
                 // Request customization: add request headers
